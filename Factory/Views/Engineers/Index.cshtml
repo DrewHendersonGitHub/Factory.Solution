@@ -14,7 +14,7 @@
 @foreach(Engineer engineer in Model)
 {
   string str = engineer.IsActive ? "Active" : "Unactive";
-  <li>@Html.ActionLink($"{engineer.Name + ", " + str}", "Details", new { id = engineer.EngineerId })</li>
+  <li><strong>@Html.ActionLink($"{engineer.Name + ", " + str}", "Details", new { id = engineer.EngineerId })</strong></li>
 }
 <hr>
 <h4>@Html.ActionLink("Add new engineer", "Create")</h4>
