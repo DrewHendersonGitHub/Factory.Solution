@@ -70,15 +70,29 @@ namespace Factory.Controllers
 
     public ActionResult AddEngineer(int id)
     {
-      var thisMachine = _db.Machines.FirstOrDefault(machine => machine.MachineId == id);
-      ViewBag.EngineerId = new SelectList(_db.Engineers, "EngineerId", "Name");
+      List<Engineer> engineers = _db.Engineers.ToList();
+      List<Engineer> EngineersList = _db.Engineers.ToList();
+      var f = _db.EngineerMachine.Where(f => f.MachineId == id);
+      foreach(EngineerMachine w in f)
+      {
+        foreach(Engineer movie in engineers)
+        {
+          if (movie.EngineerId == w.EngineerId)
+          {
+            EngineersList.Remove(movie);
+          }
+        }
+      }
+      ViewBag.num = EngineersList.Count;
+      ViewBag.EngineerId = new SelectList(EngineersList, "EngineerId", "Name");
+      var thisMachine = _db.Machines.FirstOrDefault(f => f.MachineId == id);
       return View(thisMachine);
     }
 
     [HttpPost]
     public ActionResult AddEngineer(Machine machine, int EngineerId)
     {
-      if (EngineerId != 0)
+      if (EngineerId != 0 && !_db.EngineerMachine.Any(f => f.EngineerId == EngineerId && f.MachineId == machine.MachineId))
       {
         _db.EngineerMachine.Add(new EngineerMachine() { EngineerId = EngineerId, MachineId = machine.MachineId });
         _db.SaveChanges();

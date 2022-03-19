@@ -11,18 +11,19 @@
 @if(@Model.JoinEntities.Count == 0)
 {
   <h4>This engineer is not liscensed for any repairs</h4>
-  <h3><strong>@Html.ActionLink("ADD A MACHINE", "AddMachine", new { id = Model.EngineerId })</strong></h3>
 }
+
 else
 {
   <h3>Machines authorized to repair:</h3>
-  <ul>
   @foreach(var join in Model.JoinEntities)
   {
     <li>@Html.ActionLink($"{@join.Machine.Name}", "Details", "Machines", new { id = join.Machine.MachineId })delete</li>
   }
-  </ul>
 }
+
+<h3><strong>@Html.ActionLink("ADD A MACHINE", "AddMachine", new { id = Model.EngineerId })</strong></h3>
+
 <div id="side">
   <h5 class="space">@Html.ActionLink("Edit Engineer", "Edit", new { id = Model.EngineerId })</h5>
   <h5 class="space">@Html.ActionLink("Delete Engineer", "Delete", new { id = Model.EngineerId })</h5>
