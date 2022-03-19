@@ -4,17 +4,18 @@
 
 @model Factory.Models.Engineer;
 
-<h2>Engineer Details</h2>
-<hr />
-<h3>@Html.DisplayNameFor(model => model.Name): @Html.DisplayFor(model => model.Name)</h3>
+<h2>Engineer: @Html.DisplayFor(model => model.Name)</h2>
+<h4>Liscense active until @Html.DisplayFor(model => model.LiscenseRenewal.Year)/@Html.DisplayFor(model => model.LiscenseRenewal.Month)/@Html.DisplayFor(model => model.LiscenseRenewal.Day)</h3>
+<hr>
 
 @if(@Model.JoinEntities.Count == 0)
 {
-  <p>This engineer does not contain any machines</p>
+  <h4>This engineer has no active repair liscenses</h4>
+  <h3><strong>@Html.ActionLink("ADD A MACHINE", "AddMachine", new { id = Model.EngineerId })</strong></h3>
 }
 else
 {
-  <h4>Machines the engineer contains:</h4>
+  <h3>Machines authorized to repair:</h3>
   <ul>
   @foreach(var join in Model.JoinEntities)
   {
@@ -22,8 +23,9 @@ else
   }
   </ul>
 }
-
-<p>@Html.ActionLink("Edit Engineer", "Edit", new { id = Model.EngineerId })</p>
-<p>@Html.ActionLink("Delete Engineer", "Delete", new { id = Model.EngineerId })</p>
+<div id="side">
+  <h5 class="space">@Html.ActionLink("Edit Engineer", "Edit", new { id = Model.EngineerId })</h5>
+  <h5 class="space">@Html.ActionLink("Delete Engineer", "Delete", new { id = Model.EngineerId })</h5>
+</div>
 <hr>
 <p>@Html.ActionLink("Back", "Index")</p>
