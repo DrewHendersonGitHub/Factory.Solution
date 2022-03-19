@@ -3,12 +3,10 @@
 }
 
 @model Factory.Models.Machine
-<h2>Add an engineer</h2>
-
-<h4>Add an engineer to this machine: @Html.DisplayFor(model => model.Name)</h4>
 
 @if(ViewBag.num != 0)
 {
+  <h3>Add an engineer to this machine: @Html.DisplayFor(model => model.Name)</h3>
   @using (Html.BeginForm())
   {
     @Html.HiddenFor(model => model.MachineId)
@@ -21,5 +19,5 @@
 }
 else
 {
-  <p>There are no engineers left to add</p>
+  <h3>There are no more engineers</h3>
 }

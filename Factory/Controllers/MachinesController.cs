@@ -75,11 +75,11 @@ namespace Factory.Controllers
       var f = _db.EngineerMachine.Where(f => f.MachineId == id);
       foreach(EngineerMachine w in f)
       {
-        foreach(Engineer movie in engineers)
+        foreach(Engineer engineer in engineers)
         {
-          if (movie.EngineerId == w.EngineerId)
+          if (engineer.EngineerId == w.EngineerId)
           {
-            EngineersList.Remove(movie);
+            EngineersList.Remove(engineer);
           }
         }
       }

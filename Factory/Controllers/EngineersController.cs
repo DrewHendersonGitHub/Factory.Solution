@@ -1,3 +1,4 @@
+using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.AspNetCore.Mvc;
 using Factory.Models;
@@ -42,7 +43,7 @@ namespace Factory.Controllers
         .FirstOrDefault(engineer => engineer.EngineerId == id);
       return View(thisEngineer);
     }
-    
+
     public ActionResult Edit(int id)
     {
       var thisEngineer = _db.Engineers.FirstOrDefault(engineer => engineer.EngineerId == id);
@@ -54,6 +55,38 @@ namespace Factory.Controllers
     {
       _db.Entry(engineer).State = EntityState.Modified;
       _db.SaveChanges();
+      return RedirectToAction("Index");
+    }
+
+    public ActionResult AddMachine(int id)
+    {
+      List<Machine> machines = _db.Machines.ToList();
+      List<Machine> MachinesList = _db.Machines.ToList();
+      var f = _db.EngineerMachine.Where(f => f.EngineerId == id);
+      foreach(EngineerMachine w in f)
+      {
+        foreach(Machine machine in machines)
+        {
+          if (machine.MachineId == w.MachineId)
+          {
+            MachinesList.Remove(machine);
+          }
+        }
+      }
+      ViewBag.num = MachinesList.Count;
+      ViewBag.MachineId = new SelectList(MachinesList, "MachineId", "Name");
+      var thisEngineer = _db.Engineers.FirstOrDefault(f => f.EngineerId == id);
+      return View(thisEngineer);
+    }
+
+    [HttpPost]
+    public ActionResult AddMachine(Engineer engineer, int MachineId)
+    {
+      if (MachineId != 0 && !_db.EngineerMachine.Any(f => f.MachineId == MachineId && f.EngineerId == engineer.EngineerId))
+      {
+        _db.EngineerMachine.Add(new EngineerMachine() { MachineId = MachineId, EngineerId = engineer.EngineerId });
+        _db.SaveChanges();
+      }
       return RedirectToAction("Index");
     }
 
