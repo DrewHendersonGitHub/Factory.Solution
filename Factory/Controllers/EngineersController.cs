@@ -41,6 +41,10 @@ namespace Factory.Controllers
         .Include(engineer => engineer.JoinEntities)
         .ThenInclude(join => join.Machine)
         .FirstOrDefault(engineer => engineer.EngineerId == id);
+      var eList = _db.Engineers.ToList();
+      ViewBag.Next = eList.FirstOrDefault(a => a.EngineerId > id);
+      eList.Reverse();
+      ViewBag.Previous = eList.FirstOrDefault(a => a.EngineerId < id);
       return View(thisEngineer);
     }
 

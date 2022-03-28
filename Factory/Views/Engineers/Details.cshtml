@@ -4,6 +4,19 @@
 
 @model Factory.Models.Engineer;
 
+<div id="previous">
+  @if (ViewBag.Previous != null)
+  {
+    <p>@Html.ActionLink("Previous", "Details", new { id = ViewBag.Previous.EngineerId })</p>
+  }
+</div>
+<div id="next">
+  @if (ViewBag.Next != null)
+  {
+    <p>@Html.ActionLink("Next", "Details", new { id = ViewBag.Next.EngineerId })</p>
+  }
+</div>
+
 <h2>Engineer: @Html.DisplayFor(model => model.Name)</h2>
 <h4>Liscense active until @Html.DisplayFor(model => model.LiscenseRenewal.Year)/@Html.DisplayFor(model => model.LiscenseRenewal.Month)/@Html.DisplayFor(model => model.LiscenseRenewal.Day)</h3>
 <hr>

@@ -4,6 +4,19 @@
 
 @model Factory.Models.Machine;
 
+<div id="previous">
+  @if (ViewBag.Previous != null)
+  {
+    <p>@Html.ActionLink("Previous", "Details", new { id = ViewBag.Previous.MachineId })</p>
+  }
+</div>
+<div id="next">
+  @if (ViewBag.Next != null)
+  {
+    <p>@Html.ActionLink("Next", "Details", new { id = ViewBag.Next.MachineId })</p>
+  }
+</div>
+
 <h2>Machine: @Html.DisplayFor(model => model.Name)</h2>
 <h4>@Html.DisplayFor(model => model.Description)</h3>
 <hr>
