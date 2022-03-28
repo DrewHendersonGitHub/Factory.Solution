@@ -7,13 +7,21 @@
 <div id="previous">
   @if (ViewBag.Previous != null)
   {
-    <p>@Html.ActionLink("Previous", "Details", new { id = ViewBag.Previous.EngineerId })</p>
+    <h5>@Html.ActionLink("Previous", "Details", new { id = ViewBag.Previous.EngineerId })</h5>
+  }
+  else
+  {
+    <h5>Previous</h5>
   }
 </div>
 <div id="next">
   @if (ViewBag.Next != null)
   {
-    <p>@Html.ActionLink("Next", "Details", new { id = ViewBag.Next.EngineerId })</p>
+    <h5>@Html.ActionLink("Next", "Details", new { id = ViewBag.Next.EngineerId })</h5>
+  }
+  else
+  {
+    <h5>Next</h5>
   }
 </div>
 
